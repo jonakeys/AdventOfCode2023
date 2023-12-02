@@ -44,5 +44,36 @@
 
 (defun cube-conundrum-part2 ()
   (with-open-file (file "input.txt")
-	(let ((sum))
+	(let ((sum 0) (line-split) (sets) (colors) (couple) (cubecolor) (cubeamount)
+		  (red) (green) (blue))
+	  (loop for line = (read-line file nil nil)
+			while line
+			do
+			   (setq red 0)
+			   (setq green 0)
+			   (setq blue 0)
+			   ;; split line in game info and sets
+			   (setq line-split (split-sequence:split-sequence #\: line))
+			   ;; split sets
+			   (setq sets (split-sequence:split-sequence #\; (car (cdr line-split))))
+			   ;; traverse set items
+			   (dolist (item sets)
+				 ;; split set in colors
+				 (setq colors (split-sequence:split-sequence #\, item))
+				 ;; traverse per color
+				 (dolist (color colors)
+				   ;; couple is <num> <color>
+				   (setq couple (split-sequence:split-sequence #\Space color))
+				   ;; get color of cubes
+				   (setq cubecolor (car (cdr (cdr couple))))
+				   ;; get amount of cubes
+				   (setq cubeamount (parse-integer (car (cdr couple))))
+				   ;; count number of cubes per color
+				   (if (and (equalp "red" cubecolor) (> cubeamount red))
+					   (setq red cubeamount))
+				   (if (and (equalp "green" cubecolor) (> cubeamount green))
+					   (setq green cubeamount))
+				   (if (and (equalp "blue" cubecolor) (> cubeamount blue))
+					   (setq blue cubeamount))))
+			(incf sum (* red green blue)))
 	  (format t "Part 2: ~d~%" sum))))
