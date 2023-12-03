@@ -26,7 +26,8 @@
 			while line
 			do
 			   (dolist (duo duos)
-				 (setq line (cl-ppcre:regex-replace-all (car duo) line (cdr duo))))
+				 (setq line (cl-ppcre:regex-replace-all
+							 (car duo) line (cdr duo))))
 			   (setq line (coerce line 'list))
 			   (setq numbers '())
 			   (dolist (x line numbers)

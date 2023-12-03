@@ -8,7 +8,7 @@
 	  (loop for line = (read-line file nil nil)
 			while line
 			do
-
+			   
 			)
 	  (format t "Part 1: ~d~%" sum))))
 
@@ -18,6 +18,6 @@
 	  (loop for line = (read-line file nil nil)
 			while line
 			do
-
+			   
 			)
 	  (format t "Part 2: ~d~%" sum))))

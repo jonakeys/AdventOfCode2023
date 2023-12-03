@@ -4,8 +4,9 @@
 
 (defun cube-conundrum-part1 ()
   (with-open-file (file "input.txt")
-	(let ((sum 0) (gamenr) (line-split) (sets) (colors) (couple) (cubecolor) (cubeamount)
-		  (redcubes 12) (greencubes 13) (bluecubes 14) (red) (green) (blue))
+	(let ((sum 0) (gamenr) (line-split) (sets) (colors) (couple) (cubecolor)
+		  (cubeamount) (redcubes 12) (greencubes 13) (bluecubes 14)
+		  (red) (green) (blue))
 	  (loop for line = (read-line file nil nil)
 			while line
 			do
@@ -15,9 +16,15 @@
 			   ;; split line in game info and sets
 			   (setq line-split (split-sequence:split-sequence #\: line))
 			   ;; set game number
-			   (setq gamenr (parse-integer (car (cdr (split-sequence:split-sequence #\Space (car line-split))))))
+			   (setq gamenr (parse-integer
+							 (car (cdr
+								   (split-sequence:split-sequence
+									#\Space
+									(car line-split))))))
 			   ;; split sets
-			   (setq sets (split-sequence:split-sequence #\; (car (cdr line-split))))
+			   (setq sets (split-sequence:split-sequence
+						   #\;
+						   (car (cdr line-split))))
 			   ;; traverse set items
 			   (dolist (item sets)
 				 ;; split set in colors
@@ -38,7 +45,10 @@
 				   (if (and (equalp "blue" cubecolor) (> cubeamount blue))
 					   (setq blue cubeamount))))
 			   ;; check if game is possible
-			   (if (and (<= red redcubes) (<= green greencubes) (<= blue bluecubes))
+			   (if (and
+					(<= red redcubes)
+					(<= green greencubes)
+					(<= blue bluecubes))
 				   (incf sum gamenr)))
 	  (format t "Part 1: ~d~%" sum))))
 
@@ -55,7 +65,9 @@
 			   ;; split line in game info and sets
 			   (setq line-split (split-sequence:split-sequence #\: line))
 			   ;; split sets
-			   (setq sets (split-sequence:split-sequence #\; (car (cdr line-split))))
+			   (setq sets (split-sequence:split-sequence
+						   #\;
+						   (car (cdr line-split))))
 			   ;; traverse set items
 			   (dolist (item sets)
 				 ;; split set in colors
